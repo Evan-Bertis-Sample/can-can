@@ -28,7 +28,6 @@ namespace LostInLeaves.Rendering
             _src = renderingData.cameraData.renderer.cameraColorTarget;
             _out = new RenderTargetIdentifier(_outID);
 
-
             cmd.GetTemporaryRT(_outID, descriptor.width, descriptor.height, descriptor.depthBufferBits, FilterMode.Bilinear,
                                 descriptor.colorFormat, RenderTextureReadWrite.Default, 1, true, descriptor.memoryless);
         }
