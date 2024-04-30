@@ -38,9 +38,14 @@ namespace FormulaBoy.Player
             }
         }
 
-        public void SetHeadLookAt(Vector3 position)
+        public void RotateHead(float degree)
         {
-            _tankHead?.transform.LookAt(position);
+            if (_tankHead == null)
+            {
+                return;
+            }
+
+            _tankHead.transform.localRotation = Quaternion.Euler(0, 0, degree) * _tankHead.transform.localRotation;
         }
 
         public void SetBodyVelocity(Vector3 velocity)

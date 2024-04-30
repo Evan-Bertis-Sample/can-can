@@ -13,6 +13,8 @@ namespace FormulaBoy.Player
         [SerializeField] private float _rotationSpeed = 5;
         [SerializeField] private AnimationCurve _movementSpeedCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
         [SerializeField] private float _accelerationSpeed = 0.25f;
+        [SerializeField] private AnimationCurve _rotationSpeedCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+        [SerializeField] private float _accelerationRotation = 0.25f;
 
         [Header("Input Settings")]
         [SerializeField] private int _playerId = 0;
@@ -26,6 +28,7 @@ namespace FormulaBoy.Player
 
         // State Variables
         private float _timeMoving = 0;
+        private float _timeRotating = 0;
 
         private void Start()
         {
@@ -67,8 +70,18 @@ namespace FormulaBoy.Player
 
             _tankVisualsController.SetBodyVelocity(movement);
 
-            _tankVisualsController.SetMovementSpeed(movement.magnitude);
-            // _tankVisualsController.SetLookatPosition(transform.position + movement);
+            if (_playerInput.RotationAxis != 0)
+            {
+                _timeRotating += Time.deltaTime;
+            }
+            else
+            {
+                _timeRotating = 0;
+            }
+
+            float rotation = _rotationSpeedCurve.Evaluate(_timeRotating / _accelerationRotation) * _rotationSpeed * _playerInput.RotationAxis;
+            _tankVisualsController.RotateHead(rotation);
+
         }
     }
 }

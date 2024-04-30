@@ -49,7 +49,16 @@ namespace FormulaBoy.InputManagement
         {
             _kbmPlayerInput.VerticalAxis = Input.GetAxisRaw("Vertical");
             _kbmPlayerInput.HorizontalAxis = Input.GetAxisRaw("Horizontal");
-            _kbmPlayerInput.RotationAxis = Input.GetAxisRaw("Rotation");
+            int rotation = 0;
+            if (Input.GetKey(KeyCode.Q))
+            {
+                rotation += -1;
+            }
+            if (Input.GetKey(KeyCode.E))
+            {
+                rotation += 1;
+            }
+            _kbmPlayerInput.RotationAxis = rotation;
             _kbmPlayerInput.ButtonBitmask = 0;
             if (Input.GetButton("Fire1"))
             {
