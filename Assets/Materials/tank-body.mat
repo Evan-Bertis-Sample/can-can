@@ -130,11 +130,11 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _AlbedoColor: {r: 0.4029088, g: 0.4716981, b: 0.3537736, a: 0}
-    - _Ambient: {r: 0, g: 0, b: 0, a: 1}
+    - _AlbedoColor: {r: 0.06950873, g: 0.20754719, b: 0.103565395, a: 0}
+    - _Ambient: {r: 0.7924528, g: 0.7740678, b: 0.72890705, a: 1}
     - _BaseColor: {r: 0.85490197, g: 0.5137255, b: 0.19607843, a: 1}
     - _Color: {r: 0.85490197, g: 0.5137255, b: 0.19607843, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _Toon_Ramp_Tinting: {r: 0.053221796, g: 0.059135, b: 0.49056602, a: 0}
+    - _Toon_Ramp_Tinting: {r: 0.0746262, g: 0.07726863, b: 0.3679245, a: 0}
   m_BuildTextureStacks: []

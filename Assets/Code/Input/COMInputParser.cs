@@ -4,27 +4,31 @@ using UnityEngine;
 using System.IO.Ports;
 using System.Threading;
 using System;
+using PlayerInput = FormulaBoy.InputManagement.ApplicationInput.PlayerInput;
 
-namespace FormulaBoy.Input
+namespace FormulaBoy.InputManagement
 {
     public class COMInputParser : MonoBehaviour
     {
-        [Serializable]
-        public struct PlayerInput
-        {
-            public int PlayerId;
-            public float VerticalAxis;
-            public float HorizontalAxis;
-            public float RotationAxis;
-            public byte ButtonBitmask;
-        }
-
         [SerializeField] private int _baudRate = 9600;
         [SerializeField ]private string _portName = "COM3";
         [SerializeField] private int _maxPlayers = 8;
 
         private SerialPort _port;
         [SerializeField] private PlayerInput[] _playerInputs;
+
+        public List<PlayerInput> GetPlayerInputs()
+        {
+            List<PlayerInput> playerInputs = new List<PlayerInput>();
+            foreach (PlayerInput playerInput in _playerInputs)
+            {
+                if (playerInput.PlayerId >= 0)
+                {
+                    playerInputs.Add(playerInput);
+                }
+            }
+            return playerInputs;
+        }
 
         private void Start()
         {
@@ -61,6 +65,8 @@ namespace FormulaBoy.Input
 
                     PlayerInput playerInput = new PlayerInput();
 
+                    int hardwarePlayerID = -1;
+
                     foreach (string part in parts)
                     {
                         string[] keyValue = part.Split(':');
@@ -72,7 +78,8 @@ namespace FormulaBoy.Input
                         switch (key)
                         {
                             case "Player ID":
-                                playerInput.PlayerId = int.Parse(value);
+                                hardwarePlayerID = int.Parse(value);
+                                playerInput.PlayerId = ApplicationInput.Instance.ClaimNextPlayerId();
                                 break;
                             case "Vertical Axis":
                                 playerInput.VerticalAxis = float.Parse(value);
@@ -91,8 +98,8 @@ namespace FormulaBoy.Input
 
                     if (playerInput.PlayerId >= 0 && playerInput.PlayerId < _maxPlayers)
                     {
-                        Debug.Log("Setting player input for player " + playerInput.PlayerId);
-                        _playerInputs[playerInput.PlayerId] = playerInput;
+                        Debug.Log("Setting player input for player " + playerInput.PlayerId + " from hardware player " + hardwarePlayerID);
+                        _playerInputs[hardwarePlayerID] = playerInput;
                     }
 
                 }
