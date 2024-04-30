@@ -124,9 +124,9 @@ Material:
     - _SrcBlend: 1
     - _Steps: 4
     - _Surface: 0
-    - _Toon_Ramp_Offset: 0.6
+    - _Toon_Ramp_Offset: 0.5
     - _Toon_Ramp_Offset_Point: 0.6
-    - _Toon_Ramp_Smoothness: 0
+    - _Toon_Ramp_Smoothness: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
