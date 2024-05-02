@@ -45,7 +45,7 @@ namespace FormulaBoy.Player
                 return;
             }
 
-            _tankHead.transform.localRotation = Quaternion.Euler(0, 0, degree) * _tankHead.transform.localRotation;
+            _tankHead.transform.rotation = Quaternion.Euler(0, degree, 0) * _tankHead.transform.rotation;
         }
 
         public void SetBodyVelocity(Vector3 velocity)
