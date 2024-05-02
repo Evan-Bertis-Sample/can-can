@@ -24,6 +24,14 @@ namespace FormulaBoy.InputManagement
                 RotationAxis = 0;
                 ButtonBitmask = 0;
             }
+
+            public bool ShootButton => GetBit(0);
+            public bool SpecialButton => GetBit(1);
+
+            private bool GetBit(int index)
+            {
+                return (ButtonBitmask & (1 << index)) != 0;
+            }
         }
 
         public static ApplicationInput Instance { get; private set; }

@@ -16,6 +16,9 @@ namespace FormulaBoy.Player
         [SerializeField] private AnimationCurve _rotationSpeedCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
         [SerializeField] private float _accelerationRotation = 0.25f;
 
+        [Header("Shooting Settings")]
+        [SerializeField] private float _shootCooldown = 1;
+
         [Header("Input Settings")]
         [SerializeField] private int _playerId = 0;
         private ApplicationInput.PlayerInput _playerInput;
@@ -29,6 +32,7 @@ namespace FormulaBoy.Player
         // State Variables
         private float _timeMoving = 0;
         private float _timeRotating = 0;
+        private bool _canShoot = true;
 
         private void Start()
         {
@@ -39,7 +43,12 @@ namespace FormulaBoy.Player
         private void Update()
         {
             ReadInput();
+            if (_playerInput == null || _playerInput.PlayerId != _playerId)
+            {
+                return;
+            }
             Move();
+            PerformSpecialActions();
         }
 
         private void ReadInput()
@@ -49,11 +58,6 @@ namespace FormulaBoy.Player
 
         private void Move()
         {
-            if (_playerInput == null)
-            {
-                return;
-            }
-
             Vector3 movement = new Vector3(_playerInput.HorizontalAxis, 0, _playerInput.VerticalAxis);
             
             if (movement.magnitude > 0)
@@ -82,6 +86,24 @@ namespace FormulaBoy.Player
             float rotation = _rotationSpeedCurve.Evaluate(_timeRotating / _accelerationRotation) * _rotationSpeed * _playerInput.RotationAxis;
             _tankVisualsController.RotateHead(rotation);
 
+        }
+
+        private void PerformSpecialActions()
+        {
+            if (_playerInput.ShootButton && _canShoot)
+            {
+                _canShoot = false;
+                _tankVisualsController.PlayShootAnimation(0.1f, 0.1f, null, () => 
+                {
+                    // wait for the cooldown to finish
+                    Invoke(nameof(ResetShoot), _shootCooldown);
+                });
+            }
+        }
+
+        private void ResetShoot()
+        {
+            _canShoot = true;
         }
     }
 }

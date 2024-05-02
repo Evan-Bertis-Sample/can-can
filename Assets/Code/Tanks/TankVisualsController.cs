@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
+using DG.Tweening;
+using System;
 
 namespace FormulaBoy.Player
 {
@@ -29,6 +30,7 @@ namespace FormulaBoy.Player
         // State Variables
         private Quaternion _initialHeadRotation;
         private Quaternion _initialBodyRotation;
+        private Tween _tankHeadTween;
 
         public void SetHeadlights(bool state)
         {
@@ -76,6 +78,25 @@ namespace FormulaBoy.Player
             SetHeadlights(_initialHeadlightsState);
             _initialHeadRotation = _tankHead.transform.rotation;
             _initialBodyRotation = _tankBody.transform.rotation;
+        }
+
+        public bool PlayShootAnimation(float buildUpTime, float recoverTime, Action onShoot = null, Action onRecover = null)
+        {
+            if (_tankHeadTween != null && _tankHeadTween.IsActive())
+            {
+                return false;
+            }
+
+            // stretch the head by scaling it, then tween back to original scale
+            _tankHeadTween = DOTween.Sequence()
+                .Append(_tankHead.transform.DOScale(new Vector3(1.1f, 0.8f, 1.1f), buildUpTime).SetEase(Ease.InCubic))
+                .AppendCallback(() => onShoot?.Invoke())
+                .Append(_tankHead.transform.DOScale(new Vector3(0.8f, 1.2f, 0.8f), recoverTime * 0.8f).SetEase(Ease.OutCubic))
+                .Append(_tankHead.transform.DOScale(new Vector3(1, 1, 1), recoverTime * 0.2f).SetEase(Ease.OutCubic))
+                .OnComplete(() => onRecover?.Invoke())
+                .Play();
+
+            return true;
         }
 
         private void Update()
