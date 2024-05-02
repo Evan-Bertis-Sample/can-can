@@ -96,7 +96,7 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DisplacementMagnitude: 0.5
-    - _Displacement_Magnitude: 0.1
+    - _Displacement_Magnitude: 0.35
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0

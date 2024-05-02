@@ -81,7 +81,6 @@ namespace FormulaBoy.HealthSystems
             {
                 Die();
             }
-
         }
 
         public void TakeHit(HitBox hitBox, float invincibilityTime = 0f)

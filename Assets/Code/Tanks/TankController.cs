@@ -19,6 +19,9 @@ namespace FormulaBoy.Player
         [Header("Shooting Settings")]
         [SerializeField] private float _shootCooldown = 1;
 
+        [Header("Special Action Settings")]
+        [SerializeField] private float _specialCooldown = 1;
+
         [Header("Input Settings")]
         [SerializeField] private int _playerId = 0;
         private ApplicationInput.PlayerInput _playerInput;
@@ -33,6 +36,7 @@ namespace FormulaBoy.Player
         private float _timeMoving = 0;
         private float _timeRotating = 0;
         private bool _canShoot = true;
+        private bool _canSpecial = true;
 
         private void Start()
         {
@@ -99,11 +103,26 @@ namespace FormulaBoy.Player
                     Invoke(nameof(ResetShoot), _shootCooldown);
                 });
             }
+            if (_playerInput.SpecialButton && _canSpecial)
+            {
+                _canSpecial = false;
+                // perform special action
+                _tankVisualsController.PlaySpecialActionAnimation(0.1f, 0.1f, null, () => 
+                {
+                    // wait for the cooldown to finish
+                    Invoke(nameof(ResetSpecial), _specialCooldown);
+                });
+            }
         }
 
         private void ResetShoot()
         {
             _canShoot = true;
+        }
+
+        private void ResetSpecial()
+        {
+            _canSpecial = true;
         }
     }
 }

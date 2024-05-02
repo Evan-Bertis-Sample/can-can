@@ -31,6 +31,7 @@ namespace FormulaBoy.Player
         private Quaternion _initialHeadRotation;
         private Quaternion _initialBodyRotation;
         private Tween _tankHeadTween;
+        private Tween _specialActionTween;
 
         public void SetHeadlights(bool state)
         {
@@ -93,6 +94,25 @@ namespace FormulaBoy.Player
                 .AppendCallback(() => onShoot?.Invoke())
                 .Append(_tankHead.transform.DOScale(new Vector3(0.8f, 1.2f, 0.8f), recoverTime * 0.8f).SetEase(Ease.OutCubic))
                 .Append(_tankHead.transform.DOScale(new Vector3(1, 1, 1), recoverTime * 0.2f).SetEase(Ease.OutCubic))
+                .OnComplete(() => onRecover?.Invoke())
+                .Play();
+
+            return true;
+        }
+
+        public bool PlaySpecialActionAnimation(float buildUpTime, float recoverTime, Action onAction = null, Action onRecover = null)
+        {
+            if (_specialActionTween != null && _specialActionTween.IsActive())
+            {
+                return false;
+            }
+
+            // stretch the head by scaling it, then tween back to original scale
+            _specialActionTween = DOTween.Sequence()
+                .Append(transform.DOScale(new Vector3(1.2f, 0.8f, 1.2f), buildUpTime).SetEase(Ease.InCubic))
+                .AppendCallback(() => onAction?.Invoke())
+                .Append(transform.DOScale(new Vector3(0.8f, 1.4f, 0.8f), recoverTime * 0.8f).SetEase(Ease.OutCubic))
+                .Append(transform.DOScale(new Vector3(1, 1, 1), recoverTime * 0.2f).SetEase(Ease.OutCubic))
                 .OnComplete(() => onRecover?.Invoke())
                 .Play();
 
