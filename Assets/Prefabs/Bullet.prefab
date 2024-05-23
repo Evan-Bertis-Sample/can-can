@@ -89,6 +89,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6121153dadb397a499e957d1effba091, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6797737062494445846}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6121153dadb397a499e957d1effba091, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4475073484496695370}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6121153dadb397a499e957d1effba091, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1867416335663039045}
     - targetCorrespondingSourceObject: {fileID: 8164078558771037576, guid: 6121153dadb397a499e957d1effba091, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1262300774731559922}
@@ -168,6 +174,60 @@ MonoBehaviour:
   CollisionMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &4475073484496695370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3849961588746532437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da53dd319c761134684939b1d72b5a7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitBox: {fileID: 0}
+  _destroyDelay: 0
+--- !u!114 &-1867416335663039045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3849961588746532437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cee1ae697976e24689a85f319c94ef6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shrinkDelay: 1
+  _shrinkTime: 1
+  _finalScale: {x: 0, y: 0, z: 0}
+  _shrinkCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _destroyOnShrink: 1
 --- !u!1 &5251201883699269260 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 6121153dadb397a499e957d1effba091, type: 3}
