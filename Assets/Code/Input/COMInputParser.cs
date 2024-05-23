@@ -22,6 +22,7 @@ namespace FormulaBoy.InputManagement
             List<PlayerInput> playerInputs = new List<PlayerInput>();
             foreach (PlayerInput playerInput in _playerInputs)
             {
+                if (playerInput == null) continue;
                 if (playerInput.PlayerId >= 0)
                 {
                     playerInputs.Add(playerInput);
@@ -79,7 +80,16 @@ namespace FormulaBoy.InputManagement
                         {
                             case "Player ID":
                                 hardwarePlayerID = int.Parse(value);
-                                playerInput.PlayerId = ApplicationInput.Instance.ClaimNextPlayerId();
+                                // check if there is already a player input for this hardware player
+                                if (_playerInputs[hardwarePlayerID] != null)
+                                {
+                                    playerInput = _playerInputs[hardwarePlayerID];
+                                }
+                                else
+                                {
+                                    playerInput.PlayerId = ApplicationInput.Instance.ClaimNextPlayerId();
+                                }
+                                // playerInput.PlayerId = ApplicationInput.Instance.ClaimNextPlayerId();
                                 break;
                             case "Vertical Axis":
                                 playerInput.VerticalAxis = float.Parse(value);
