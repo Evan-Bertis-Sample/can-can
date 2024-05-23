@@ -18,6 +18,9 @@ namespace FormulaBoy.Player
 
         [Header("Shooting Settings")]
         [SerializeField] private float _shootCooldown = 1;
+        [SerializeField] private GameObject _bulletPrefab;
+        [SerializeField] private Transform _bulletSpawnPoint;
+        [SerializeField] private float _bulletSpeed = 10;
 
         [Header("Special Action Settings")]
         [SerializeField] private float _specialCooldown = 1;
@@ -101,6 +104,11 @@ namespace FormulaBoy.Player
                 {
                     // wait for the cooldown to finish
                     Invoke(nameof(ResetShoot), _shootCooldown);
+                    // perform shoot action
+                    // instantiate bullet
+                    GameObject bullet = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, _bulletSpawnPoint.rotation);
+                    // set bullet speed
+                    bullet.GetComponent<Rigidbody>().velocity = _bulletSpawnPoint.forward * _bulletSpeed;
                 });
             }
             if (_playerInput.SpecialButton && _canSpecial)
