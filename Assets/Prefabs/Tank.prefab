@@ -160,13 +160,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123974114738654493}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -1.125, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4370428905264736972}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &535286411255368460
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,6 +515,7 @@ GameObject:
   - component: {fileID: 982913041612585588}
   - component: {fileID: 1496256409973264003}
   - component: {fileID: 3225590251222024136}
+  - component: {fileID: 6243045178640649566}
   m_Layer: 3
   m_Name: Head
   m_TagString: Untagged
@@ -609,6 +610,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.7790163, y: 2.0652633, z: 0.7328548}
   m_Center: {x: 0, y: -0.00000005960466, z: 0.3664274}
+--- !u!114 &6243045178640649566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2394288244480293036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df85309f549a4d90b93b0676b80f6f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HurtBoxHealth: {fileID: 184731432385159329}
 --- !u!1 &3343220144456642906
 GameObject:
   m_ObjectHideFlags: 0
@@ -5651,6 +5665,7 @@ GameObject:
   - component: {fileID: 3674875636328471778}
   - component: {fileID: 2748014419392791411}
   - component: {fileID: 5008949700304910056}
+  - component: {fileID: 716842797031527052}
   m_Layer: 3
   m_Name: Body
   m_TagString: Untagged
@@ -5747,6 +5762,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 3.1692162, z: 1.4433435}
   m_Center: {x: 0, y: -0.58460784, z: -0.058991}
+--- !u!114 &716842797031527052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4825365078483972383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df85309f549a4d90b93b0676b80f6f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HurtBoxHealth: {fileID: 184731432385159329}
 --- !u!1 &5394514776921574581
 GameObject:
   m_ObjectHideFlags: 0
@@ -11031,6 +11059,8 @@ GameObject:
   - component: {fileID: 2249820357983969874}
   - component: {fileID: 7748597478410106209}
   - component: {fileID: 595281879281762271}
+  - component: {fileID: 184731432385159329}
+  - component: {fileID: 966366322354123847}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -11198,9 +11228,46 @@ MonoBehaviour:
     m_RotationOrder: 4
   _accelerationRotation: 0.25
   _shootCooldown: 1
+  _bulletPrefab: {fileID: 3849961588746532437, guid: ad6c7c50d2914c54a8516f9f5531c833, type: 3}
+  _bulletSpawnPoint: {fileID: 6895881623678682164}
+  _bulletSpeed: 20
   _specialCooldown: 1
   _playerId: 0
   _tankVisualsController: {fileID: 0}
+--- !u!114 &184731432385159329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6647762672284152939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e3c21ad476ea494cae2eeede80c861f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MaxHealth>k__BackingField: 1
+  <HealthVal>k__BackingField: 1
+  HurtBoxes:
+  - {fileID: 6243045178640649566}
+  - {fileID: 716842797031527052}
+--- !u!114 &966366322354123847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6647762672284152939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af10df26b7ea6bd44821b93b67bae15a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: {fileID: 184731432385159329}
+  _explosionParticles: {fileID: 378248967059911132, guid: 290c9eebf976bd243b25bfec7bbec03b, type: 3}
+  _explosionForce: 100
+  _destroyOnExplode: 1
+  _destroyParticlesOnExplode: 1
 --- !u!1 &8191714505744175404
 GameObject:
   m_ObjectHideFlags: 0
